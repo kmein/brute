@@ -50,7 +50,9 @@ main = do
         | null opts || ShowHelp `elem` opts -> putStrLn helpDialog
         | otherwise ->
           let alphabet = buildAlphabet opts
-          in  mapM_ putStrLn $ case filter (\(Count _) -> True) opts of
+              isCount Count{} = True
+              isCount _       = False
+          in  mapM_ putStrLn $ case filter isCount opts of
             (Count len:_) -> bruteForce' alphabet (read len)
             _ -> bruteForce alphabet
         where

@@ -1,9 +1,11 @@
+{-# LANGUAGE LambdaCase #-}
 module Main where
 
 import BruteForce            (bruteForce, bruteForce')
 
 import System.Console.GetOpt
 import System.Environment    (getArgs)
+import System.TimeIt         (timeIt)
 
 -- | all possible flags that can be passed to the executable
 data Flag = ShowVersion -- ^ displays the version number
@@ -13,6 +15,7 @@ data Flag = ShowVersion -- ^ displays the version number
           | EnableLowerCase -- ^ enables lower case ASCII
           | EnableNumbers -- ^ enables ASCII numerals (0-9)
           | EnableAdditional String -- ^ enables additional specified characters
+          | TimeWord String -- ^ searches for a specific word and displays the elapsed time
           deriving (Eq)
 
 -- | brute's options with description
@@ -25,6 +28,7 @@ options =
   , Option ['n'] ["numbers"] (NoArg EnableNumbers) "enable numbers"
   , Option ['a'] ["alphabet"] (ReqArg EnableAdditional "CHARS") "enable specific characters"
   , Option ['c'] ["count"] (ReqArg Count "INT") "only search for strings of specific length"
+  , Option ['w'] ["word"] (ReqArg TimeWord "WORD") "search for specific word; display elapsed time"
   ]
 
 -- | parses command line options
@@ -50,14 +54,18 @@ main = do
         | null opts || ShowHelp `elem` opts -> putStrLn helpDialog
         | otherwise ->
           let alphabet = buildAlphabet opts
-              isCount Count{} = True
-              isCount _       = False
-          in  mapM_ putStrLn $ case filter isCount opts of
-            (Count len:_) -> bruteForce' alphabet (read len)
-            _ -> bruteForce alphabet
+              isCount = \case Count{} -> True; _ -> False
+              isTimeWord = \case TimeWord{} -> True; _ -> False
+          in case filter isTimeWord opts of
+            (TimeWord str:_) -> timeIt $ do
+              mapM_ putStrLn $ takeWhile (/= str) $ bruteForce' alphabet (length str)
+              putStrLn $ "\nFound " ++ str ++ "!\n"
+            [] -> mapM_ putStrLn $ case filter isCount opts of
+              (Count len:_) -> bruteForce' alphabet (read len)
+              [] -> bruteForce alphabet
         where
           buildAlphabet :: [Flag] -> String
-          buildAlphabet = concatMap $ \opt -> case opt of
+          buildAlphabet = concatMap $ \case
             EnableUpperCase     -> ['A'..'Z']
             EnableLowerCase     -> ['a'..'z']
             EnableNumbers       -> ['0'..'9']

@@ -1,4 +1,6 @@
-# brute ![](https://jenkins.gedmin.as/job/check-manifest/badge/icon?style=plastic)
+# brute
+![](https://jenkins.gedmin.as/job/check-manifest/badge/icon?style=plastic)
+
 A simple brute-forcing program
 
 ## Synopsis

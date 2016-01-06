@@ -29,7 +29,7 @@ author:              kmein
 
 -- An email address to which users can send suggestions, bug reports, and
 -- patches.
-maintainer:          kieran.meinhardt@outlook.de
+maintainer:          kieran.meinhardt@gmail.com
 
 -- A copyright notice.
 -- copyright:
@@ -57,7 +57,7 @@ executable brute
   -- other-extensions:
 
   -- Other library packages from which modules are imported.
-  build-depends:       base >=4.8 && <4.9
+  build-depends:       base >=4.8 && <4.9, timeit
 
   -- Directories containing source files.
   hs-source-dirs:      .

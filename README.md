@@ -40,12 +40,15 @@ Windows users can use `type` instead of `cat`. For `time` there is, as far as I
 know, no alternative.)
 
 ### Building `brute`
-`brute` requires the following programs for building
+`brute` requires the following programs and libraries for building
 
   * Cabal >= 1.10
   * GHC (I used 7.10.3, but any version above 7.6 would be OK)
+    * timeit
+    * base >= 4.8 && < 4.9
 
-Both of them are included in the Haskell Platform.
+Both of the programs are included in the Haskell Platform.
+The timeit library will automatically be installed by cabal.
 
 To build `brute`, just execute the following command in the project directory
 (the directory with the `brute.cabal` file in it):

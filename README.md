@@ -40,8 +40,8 @@ know, no alternative.)
 ### Building `brute`
 `brute` requires the following programs for building
 
-  * `cabal` (I used 1.22.5)
-  * `ghc` (I used 7.10.3, but any version above 7.6 would be OK)
+  * Cabal (I used 1.22.5)
+  * GHC (I used 7.10.3, but any version above 7.6 would be OK)
 
 Both of them are included in the Haskell Platform.
 

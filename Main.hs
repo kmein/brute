@@ -8,14 +8,14 @@ import System.Environment    (getArgs)
 import System.TimeIt         (timeIt)
 
 -- | all possible flags that can be passed to the executable
-data Flag = ShowVersion -- ^ displays the version number
-          | ShowHelp -- ^ displays a help dialog
-          | Count String -- ^ limits the program's output to string of specific length
-          | EnableUpperCase -- ^ enables upper case ASCII
-          | EnableLowerCase -- ^ enables lower case ASCII
-          | EnableNumbers -- ^ enables ASCII numerals (0-9)
+data Flag = ShowVersion             -- ^ displays the version number
+          | ShowHelp                -- ^ displays a help dialog
+          | Count String            -- ^ limits the program's output to string of specific length
+          | EnableUpperCase         -- ^ enables upper case ASCII
+          | EnableLowerCase         -- ^ enables lower case ASCII
+          | EnableNumbers           -- ^ enables ASCII numerals (0-9)
           | EnableAdditional String -- ^ enables additional specified characters
-          | TimeWord String -- ^ searches for a specific word and displays the elapsed time
+          | TimeWord String         -- ^ searches for a specific word and displays the elapsed time
           deriving (Eq)
 
 -- | brute's options with description

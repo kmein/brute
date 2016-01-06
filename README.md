@@ -1,5 +1,5 @@
 # brute
-A simple brute-force program
+A simple brute-forcing program
 
 ## Synopsis
 `brute *OPTIONS* [-w WORD]`

@@ -33,7 +33,7 @@ user-defined list of characters. Given those alphabet switches, a press of the
 Outputs from both modes can of course be redirected to a file where they might
 serve as a dictionary for a dictionary attack. (By the way, there is no
 dictionary brute force mode in `brute` because it just lists words. For a file
-like a dictionary, that would be (on Unix) `cat`s job - or for timing `time`s.
+like a dictionary, that would be `cat`s job - or for timing `time`s.
 Windows users can use `type` instead of `cat`. For `time` there is, as far as I
 know, no alternative.)
 
@@ -55,15 +55,45 @@ $ cabal build
 Optionally, the haddock documentation can be built with
 
 ```
-$ cabal haddock
+$ cabal haddock --executables
 ```
 
 The executable can then be found at `build/brute/brute`.
+And the documentation starts at `dist/doc/html/brute/brute/index.html`.
 
 ### Installing `brute`
+Cabal is able to install the package without explicitly building it.
+The executable then will be at `~/.cabal/bin/brute` or `%APPDATA%\cabal\bin\brute.exe`.
+
+```
+$ cabal install
+```
 
 ### Using `brute`
+The following is the output of `brute`'s help dialog.
 
-## Options
+```
+Usage: brute [OPTIONS...]
+  -v        --version         show version number
+  -h        --help            show this dialog
+  -u        --uppercase       enable upper case
+  -l        --lowercase       enable lower case
+  -n        --numbers         enable numbers
+  -a CHARS  --alphabet=CHARS  enable specific characters
+  -c INT    --count=INT       only search for strings of specific length
+  -w WORD   --word=WORD       search for specific word; display elapsed time
+```
 
+There are no default options, so every character class has to be included
+explicitly. For example `brute -luna _- -c 6` will go through every six
+character word which includes lower case, upper case, numbers, as well as
+underscores and hyphens. It also searches in this order, so it will first
+go through all lower case letters, then upper case, then numbers and then
+underscore and hyphen. The order can of course be changed (e.g. `-nua _- -l`).
+`brute -nc 4` will check every four digit number (pin code?).
+
+Finally, an example from *timing mode*: `brute -lua _ -w Hacker_Password`
+will check every Ada-style identifier (underscore, uppercase and lowercase)
+of a maximum length of that of `Hacker_Password` until it finds it. It will
+then display the elapsed CPU time.
 

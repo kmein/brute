@@ -12,17 +12,17 @@ A simple brute-forcing program
 It all began when I was challenged by a colleague to crack a
 self-password-protected PDF file. The program I initially used was quite slow
 and did not really have that many options for narrowing the search criteria.
-Therefore I decided to write a very configurable brute-forcer.
-The choice of Haskell arose from the fact that I wanted to challenge myself
-to get back into Haskell after a long programming break. Also, it did kind of
-impose another challenge.
+Therefore I decided to write a very configurable brute-forcer. The choice of
+Haskell arose from the fact that I wanted to challenge myself to get back into
+Haskell after a long programming break. Also, it did kind of impose another
+challenge.
 
 Now, back to the program itself: As already mentioned, the key point for `brute`
-is configurability. This configurability is achieved by many combinable
-command line flags which control, whether, for example, numbers should be
-included in the brute-force alphabet. There is also an option for adding a
-user-defined list of characters. Given those alphabet switches, a press of the
-`<ENTER>` key starts the search. The latter comes in two modes:
+is configurability. This configurability is achieved by many combinable command
+line flags which control, whether, for example, numbers should be included in
+the brute-force alphabet. There is also an option for adding a user-defined
+list of characters. Given those alphabet switches, a press of the `<ENTER>` key
+starts the search. The latter comes in two modes:
 
   * *timing mode*, which is invoked by the `-w *WORD*` switch and then
     runs a search for `*WORD*` using the specified alphabet. When the word
@@ -32,12 +32,12 @@ user-defined list of characters. Given those alphabet switches, a press of the
     from the specified alphabet. This *might* be good for brute-force cracking
     files.
 
-Outputs from both modes can of course be redirected to a file where they might
-serve as a dictionary for a dictionary attack. (By the way, there is no
+Outputs from both modes can of course be redirected to a file where they
+might serve as a dictionary for a dictionary attack. (By the way, there is no
 dictionary brute force mode in `brute` because it just lists words. For a file
-like a dictionary, that would be `cat`s job - or for timing `time`s.
-Windows users can use `type` instead of `cat`. For `time` there is, as far as I
-know, no alternative.)
+like a dictionary, that would be `cat`s job - or for timing `time`s. Windows
+users can use `type` instead of `cat`. For `time` there is, as far as I know, no
+alternative.)
 
 ### Building `brute`
 `brute` requires the following programs and libraries for building
@@ -47,8 +47,8 @@ know, no alternative.)
     * timeit
     * base >= 4.8 && < 4.9
 
-Both of the programs are included in the Haskell Platform.
-The timeit library will automatically be installed by cabal.
+Both of the programs are included in the Haskell Platform The timeit library   .
+will automatically be installed by cabal                                       .
 
 To build `brute`, just execute the following command in the project directory
 (the directory with the `brute.cabal` file in it):
@@ -67,8 +67,9 @@ The executable can then be found at `build/brute/brute`.
 And the documentation starts at `dist/doc/html/brute/brute/index.html`.
 
 ### Installing `brute`
-Cabal is able to install the package without explicitly building it.
-The executable then will be at `~/.cabal/bin/brute` or `%APPDATA%\cabal\bin\brute.exe`.
+Cabal is able to install the package without explicitly
+building it. The executable then will be at `~/.cabal/bin/brute` or
+`%APPDATA%\cabal\bin\brute.exe`.
 
 ```
 $ cabal install
@@ -97,8 +98,8 @@ go through all lower case letters, then upper case, then numbers and then
 underscore and hyphen. The order can of course be changed (e.g. `-nua _- -l`).
 `brute -nc 4` will check every four digit number (pin code?).
 
-Finally, an example from *timing mode*: `brute -lua _ -w Hacker_Password`
-will check every Ada-style identifier (underscore, uppercase and lowercase)
-of a maximum length of that of `Hacker_Password` until it finds it. It will
-then display the elapsed CPU time.
+Finally, an example from *timing mode*: `brute -lua _ -w Hacker_Password` will
+check every Ada-style identifier (underscore, uppercase and lowercase) of a
+maximum length of that of `Hacker_Password` until it finds it. It will then
+display the elapsed CPU time.
 

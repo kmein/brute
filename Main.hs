@@ -1,11 +1,11 @@
 {-# LANGUAGE LambdaCase #-}
 module Main where
 
-import BruteForce            (bruteForce, bruteForce')
+import BruteForce (bruteForce, bruteForce')
 
 import System.Console.GetOpt
-import System.Environment    (getArgs)
-import System.TimeIt         (timeIt)
+import System.Environment (getArgs)
+import System.TimeIt (timeIt)
 
 -- | all possible flags that can be passed to the executable
 data Flag = ShowVersion             -- ^ displays the version number
@@ -32,9 +32,8 @@ options =
   ]
 
 -- | parses command line options
-bruteOpts
-  :: [String] -- ^ an argument vector
-  -> IO ([Flag], [String]) -- ^ a tuple of all the parsed flags and additional args
+bruteOpts :: [String] -- ^ an argument vector
+          -> IO ([Flag], [String]) -- ^ a tuple of all the parsed flags and additional args
 bruteOpts argv =
   case getOpt Permute options argv of
     (o, n, []) -> return (o, n)
@@ -47,27 +46,32 @@ helpDialog = usageInfo header options
 
 -- | parses command line arguments and brute-forces according to them
 main :: IO ()
-main = do
-  (opts, _) <- bruteOpts =<< getArgs
-  case () of
-    ()  | ShowVersion `elem` opts -> putStrLn "brute 0.1.0.0"
-        | null opts || ShowHelp `elem` opts -> putStrLn helpDialog
-        | otherwise ->
-          let alphabet = buildAlphabet opts
-              isCount = \case Count{} -> True; _ -> False
-              isTimeWord = \case TimeWord{} -> True; _ -> False
-          in case filter isTimeWord opts of
-            (TimeWord str:_) -> timeIt $ do
-              mapM_ putStrLn $ takeWhile (/= str) $ bruteForce' alphabet (length str)
-              putStrLn $ "\nFound " ++ str ++ "!\n"
-            [] -> mapM_ putStrLn $ case filter isCount opts of
-              (Count len:_) -> bruteForce' alphabet (read len)
-              [] -> bruteForce alphabet
-        where
-          buildAlphabet :: [Flag] -> String
-          buildAlphabet = concatMap $ \case
-            EnableUpperCase     -> ['A'..'Z']
-            EnableLowerCase     -> ['a'..'z']
-            EnableNumbers       -> ['0'..'9']
-            EnableAdditional cs -> cs
-            _                   -> []
+main =
+  do (opts, _) <- bruteOpts =<< getArgs
+     case () of
+       () | ShowVersion `elem` opts -> putStrLn "brute 0.1.0.0"
+          | null opts || ShowHelp `elem` opts -> putStrLn helpDialog
+          | otherwise ->
+            let alphabet = buildAlphabet opts
+                isCount = \case Count{} -> True; _ -> False
+                isTimeWord = \case TimeWord{} -> True; _ -> False
+            in case filter isTimeWord opts of
+              (TimeWord str:_) ->
+                timeIt $
+                do mapM_ putStrLn $ takeWhile (/= str) $ bruteForce' alphabet (length str)
+                   putStrLn $ "\nFound " ++ str ++ "!\n"
+              [] ->
+                mapM_ putStrLn $
+                case filter isCount opts of
+                  (Count len:_) -> bruteForce' alphabet (read len)
+                  [] -> bruteForce alphabet
+       where
+         buildAlphabet :: [Flag] -> String
+         buildAlphabet =
+           concatMap $
+           \case
+             EnableUpperCase -> ['A'..'Z']
+             EnableLowerCase -> ['a'..'z']
+             EnableNumbers -> ['0'..'9']
+             EnableAdditional cs -> cs
+             _ -> []

@@ -47,20 +47,20 @@ alternative.)
     * timeit
     * base >= 4.8 && < 4.9
 
-Both of the programs are included in the Haskell Platform The timeit library   .
-will automatically be installed by cabal                                       .
+Both of the programs are included in the Haskell Platform The timeit library
+will automatically be installed by cabal.
 
 To build `brute`, just execute the following command in the project directory
 (the directory with the `brute.cabal` file in it):
 
 ```
-$ cabal build
+$ stack build
 ```
 
 Optionally, the haddock documentation can be built with
 
 ```
-$ cabal haddock --executables
+$ stack haddock --executables
 ```
 
 The executable can then be found at `build/brute/brute`.
@@ -68,11 +68,10 @@ And the documentation starts at `dist/doc/html/brute/brute/index.html`.
 
 ### Installing `brute`
 Cabal is able to install the package without explicitly
-building it. The executable then will be at `~/.cabal/bin/brute` or
-`%APPDATA%\cabal\bin\brute.exe`.
+building it. The executable then will be at `~/.local/bin/brute`.
 
 ```
-$ cabal install
+$ stack install
 ```
 
 ### Using `brute`

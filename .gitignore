@@ -1,2 +1,3 @@
 # compiled documentation and executables
 dist/
+.stack-work/

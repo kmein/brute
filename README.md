@@ -1,5 +1,4 @@
-# brute
-![](https://jenkins.gedmin.as/job/check-manifest/badge/icon?style=plastic)
+# brute [![Build Status](https://travis-ci.org/kmein/brute.svg?branch=master)](https://travis-ci.org/kmein/brute)
 
 A simple brute-forcing program
 
